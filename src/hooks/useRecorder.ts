@@ -4,6 +4,7 @@ import { addChunk, readAllChunks, clearChunks } from "./useIndexedDB";
 import type { LanguageCode } from "@/constants/languages";
 import { DURATIONS } from "@/constants/durations";
 import { createObjectURL, revokeObjectURL } from "@/lib/utils";
+import { toast } from "react-toastify";
 
 export function useRecorder(lang: LanguageCode = "en-US") {
   const [recording, setRecording] = useState(false);
@@ -67,6 +68,9 @@ export function useRecorder(lang: LanguageCode = "en-US") {
 
     timeoutRef.current = setTimeout(() => {
       stopRecording();
+      toast("Sesion expired. Recording stopped.", {
+        type: "info",
+      });
     }, durationLimit);
   };
 
