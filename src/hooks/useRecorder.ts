@@ -25,7 +25,7 @@ export function useRecorder(lang: LanguageCode = "en-US") {
         revokeObjectURL(audioURL); // Clean up the object URL
       }
     };
-  }, []);
+  }, [audioURL]);
 
   const startRecording = async () => {
     if (durationLimit <= 0) {
@@ -108,7 +108,7 @@ export function useRecorder(lang: LanguageCode = "en-US") {
       if (response.ok) {
         const data = await response.json();
         // Append the new transcript to the existing one
-        setTranscript((prev) => `${prev} ${data.transcript}`);
+        setTranscript(data.transcript);
         console.log("Transcript received:", data.transcript);
       } else {
         console.error("Failed to transcribe audio chunk.");
