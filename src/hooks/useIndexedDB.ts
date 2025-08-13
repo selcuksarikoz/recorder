@@ -1,8 +1,9 @@
-// Minimal IndexedDB helpers to store audio chunks (low RAM usage)
-
 const DB_NAME = "AudioRecorderDB";
-const STORE = "chunks";
+const STORE = "chunks"; // or store name could be userId or sessionId based
 
+/*
+ * It provides methods to open the database, clear chunks, add a chunk, and read all chunks.
+ */
 export function openDB(): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const req = indexedDB.open(DB_NAME, 1);
