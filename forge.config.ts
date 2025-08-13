@@ -20,11 +20,15 @@ const config: ForgeConfig = {
     icon: "./images/icon", // Make sure to add the proper extension per platform: .ico for Windows, .icns for macOS
     extraResource: ["./dist", "./images"], // Include both dist and images folders as resources
     nodeGypRebuild: true,
+    extendInfo: {
+      NSMicrophoneUsageDescription: "Please give us access to your microphone",
+    },
     osxSign: process.env.APPLE_ID
       ? {
           identity: process.env.APPLE_IDENTITY,
           entitlements: "build/entitlements.mac.plist",
           entitlementsInherit: "build/entitlements.mac.plist",
+
           hardenedRuntime: true,
           gatekeeperAssess: false,
         }

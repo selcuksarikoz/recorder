@@ -17,6 +17,9 @@ module.exports = defineConfig({
     gatekeeperAssess: false,
     entitlements: "build/entitlements.mac.plist",
     entitlementsInherit: "build/entitlements.mac.plist",
+    extendInfo: {
+      NSMicrophoneUsageDescription: "Please give us access to your microphone",
+    },
   },
   win: {
     target: ["nsis"],

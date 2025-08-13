@@ -12,11 +12,15 @@
     <true/>
     <key>com.apple.security.device.camera</key>
     <true/>
+    <key>com.apple.security.device.microphone</key>
+    <true/>
     <key>com.apple.security.network.client</key>
     <true/>
     <key>com.apple.security.network.server</key>
     <true/>
     <key>com.apple.security.files.user-selected.read-write</key>
     <true/>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Please give us access to your microphone.</string>
   </dict>
 </plist>

@@ -88,7 +88,7 @@ export default function App() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={DURATIONS.SHORT.toString()}>
-                1 s (CTO test)
+                5 s (CTO test)
               </SelectItem>
               <SelectItem value={DURATIONS.MEDIUM.toString()}>1 min</SelectItem>
               <SelectItem value={DURATIONS.LONG.toString()}>4 hours</SelectItem>

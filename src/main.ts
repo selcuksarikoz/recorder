@@ -6,7 +6,9 @@ import {
   ipcMain,
   Menu,
   nativeImage,
+  protocol,
   session,
+  systemPreferences,
   Tray,
 } from "electron";
 import path from "path";
@@ -18,10 +20,14 @@ let isVisible = true;
 
 // http protocol handler for custom protocol
 app.setAsDefaultProtocolClient("viaHealt");
+app.setName("vieHealt");
 
 // Properly handle paths for both development and production
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+app.commandLine.appendSwitch("use-fake-ui-for-media-stream");
+app.commandLine.appendSwitch("enable-features", "MediaCapture");
 
 async function createWindow() {
   try {
@@ -59,13 +65,20 @@ async function createWindow() {
     // Allow microphone
     session.defaultSession.setPermissionRequestHandler(
       (webContents, permission, callback) => {
-        if (permission === "media") {
-          callback(true);
-        } else {
-          callback(false);
-        }
+        callback(["media", "audioCapture", "microphone"].includes(permission));
       },
     );
+
+    await systemPreferences.askForMediaAccess("microphone");
+
+    // const microPhoneGranted =
+    //   await systemPreferences.askForMediaAccess("microphone");
+    // console.log(microPhoneGranted);
+    // if (!microPhoneGranted) {
+    //   shell.openExternal(
+    //     "x-apple.systempreferences:com.apple.preference.security?Privacy_Microphone",
+    //   );
+    // }
   } catch (error) {
     console.error("Error creating window:", error);
   }
@@ -149,11 +162,11 @@ async function createTrayIcon(pictureUrl?: string) {
 }
 
 app.whenReady().then(async () => {
-  try {
-    await createTrayIcon();
-  } catch (error) {
-    console.error("Error in whenReady:", error);
-  }
+  await createTrayIcon();
+  protocol.registerFileProtocol("app", (request, callback) => {
+    const url = request.url.substr(6);
+    callback({ path: path.normalize(`${__dirname}/${url}`) });
+  });
 });
 
 async function displayApp() {
