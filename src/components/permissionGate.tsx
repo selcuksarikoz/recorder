@@ -11,7 +11,7 @@ export default function PermissionGate({
   children: React.ReactNode;
 }) {
   const [granted, setGranted] = useState<boolean | null>(null);
-  const [message, setMessage] = useState<string>("");
+  const [message, setMessage] = useState("");
 
   const probe = async () => {
     try {
@@ -19,7 +19,7 @@ export default function PermissionGate({
       stream.getTracks().forEach((t) => t.stop());
       setGranted(true);
       setMessage("");
-    } catch (err: any) {
+    } catch (err: { name: string } | any) {
       setGranted(false);
       setMessage(
         err?.name === "NotAllowedError"

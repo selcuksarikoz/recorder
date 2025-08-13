@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Visualizer } from "react-sound-visualizer";
+import { toast } from "react-toastify";
+
 import "./assets/css/app.css";
 
 import {
@@ -40,7 +42,7 @@ export default function App() {
   const convertAudio = async () => {
     const chunks = await readAllChunks();
     if (chunks.length === 0) {
-      alert("No audio chunks available to convert.");
+      toast("No audio chunks available to convert.");
       return;
     }
 
@@ -50,7 +52,7 @@ export default function App() {
 
   const downloadAudio = () => {
     if (!audioURL) {
-      alert("No audio available to download.");
+      toast("No audio available to download.");
       return;
     }
     downloadFile(audioURL, "recording.webm");
