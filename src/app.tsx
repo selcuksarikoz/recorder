@@ -18,7 +18,8 @@ import { LANGS, type LanguageCode } from "./constants/languages";
 import { Button } from "@/components/ui/button";
 import { readAllChunks } from "@/hooks/useIndexedDB";
 import { downloadFile } from "@/utils/downloadFile";
-import { convertFile } from "@/utils/convertFile";
+import { convertToAudioFile } from "@/utils/convertToAudioFile";
+import { Transcript } from "@/components/transcript";
 
 export default function App() {
   const [lang, setLang] = useState<LanguageCode>("en-US");
@@ -47,7 +48,7 @@ export default function App() {
     }
 
     setConvertLoading(true);
-    convertFile(chunks).finally(() => setConvertLoading(false));
+    convertToAudioFile(chunks).finally(() => setConvertLoading(false));
   };
 
   const downloadAudio = () => {
@@ -145,9 +146,11 @@ export default function App() {
           </section>
         )}
 
-        <section className="transcript">
-          {transcriptLoading ? "Transcript is creating..." : transcript}
-        </section>
+        {transcriptLoading && !transcript ? (
+          "Transcript is creating..."
+        ) : (
+          <Transcript transcript={transcript} />
+        )}
       </div>
     </PermissionGate>
   );

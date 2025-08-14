@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { addChunk, readAllChunks, clearChunks } from "./useIndexedDB";
 import type { LanguageCode } from "@/constants/languages";
 import { DURATIONS } from "@/constants/durations";
-import { createObjectURL, revokeObjectURL } from "@/lib/utils";
+import { createObjectURL, revokeObjectURL } from "@/utils/objectUrl";
 import { toast } from "react-toastify";
 
 export function useRecorder(lang: LanguageCode = "en-US") {

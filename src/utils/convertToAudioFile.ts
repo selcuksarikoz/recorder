@@ -1,10 +1,10 @@
-import { revokeObjectURL } from "@/lib/utils";
+import { revokeObjectURL } from "@/utils/objectUrl";
 import { downloadFile } from "@/utils/downloadFile";
 
 /*
  * It handles the conversion of audio files to a different format.
  */
-export async function convertFile(chunks: Blob[]) {
+export async function convertToAudioFile(chunks: Blob[]) {
   const blob = new Blob(chunks, { type: "audio/webm" });
   const formData = new FormData();
   formData.append("audio", blob, "recording.webm");
